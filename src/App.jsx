@@ -52,16 +52,20 @@ const average = (arr) =>
 
 export default function App() {
   const [movies, setMovies] = useState(tempMovieData);
+  const [watched, setWatched] = useState(tempWatchedData);
   return (
     <>
       <Nav>
-        <Result movies={movies} />
+        <NumResult movies={movies} />
       </Nav>
       <Main>
-        <ListBox>
+        <Box>
           <MovieList movies={movies} />
-        </ListBox>
-        <WatchBox />
+        </Box>
+        <Box>
+          <WatchedList watched={watched} />
+          <WatchedSummary watched={watched} />
+        </Box>
       </Main>
     </>
   );
@@ -99,7 +103,7 @@ const Search = () => {
   );
 };
 
-const Result = ({ movies }) => {
+const NumResult = ({ movies }) => {
   return (
     <p className='num-results'>
       Found <strong>{movies.length}</strong> results
@@ -111,18 +115,18 @@ const Main = ({ children }) => {
   return <main className='main'>{children}</main>;
 };
 
-const ListBox = ({ children }) => {
-  const [isOpen1, setIsOpen1] = useState(true);
+const Box = ({ children }) => {
+  const [isOpen, setIsOpen] = useState(true);
 
   return (
     <div className='box'>
       <button
         className='btn-toggle'
-        onClick={() => setIsOpen1((open) => !open)}
+        onClick={() => setIsOpen((open) => !open)}
       >
-        {isOpen1 ? "–" : "+"}
+        {isOpen ? "–" : "+"}
       </button>
-      {isOpen1 && children }
+      {isOpen && children }
     </div>
   );
 };
@@ -152,26 +156,7 @@ const Movie = ({ movie }) => {
   );
 };
 
-const WatchBox = () => {
-  const [watched, setWatched] = useState(tempWatchedData);
-  const [isOpen2, setIsOpen2] = useState(true);
-  return (
-    <div className='box'>
-      <button
-        className='btn-toggle'
-        onClick={() => setIsOpen2((open) => !open)}
-      >
-        {isOpen2 ? "–" : "+"}
-      </button>
-      {isOpen2 && (
-        <>
-          <WatchedSummary watched={watched} />
-          <WatchedList watched={watched} />
-        </>
-      )}
-    </div>
-  );
-};
+
 
 const WatchedList = ({ watched }) => {
   return (
