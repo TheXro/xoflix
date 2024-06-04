@@ -12,7 +12,7 @@ const starContainerStyle = {
   gap: "0.5rem",
 };
 
-const StarRating = ({ maxRating = 5, color = "yellow", size = 25 }) => {
+const StarRating = ({ maxRating = 5, color = "yellow", size = 25, onSetRating }) => {
       const [rating, setRating] = React.useState(0);
       const [tempRating, setTempRating] = React.useState(0);
 
@@ -25,6 +25,7 @@ const StarRating = ({ maxRating = 5, color = "yellow", size = 25 }) => {
 
   function handleRating(rating) {
     setRating(rating);
+    onSetRating(rating);
   }
 
   return (
