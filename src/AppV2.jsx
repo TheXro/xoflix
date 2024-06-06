@@ -259,12 +259,9 @@ const WatchedMovie = ({ movie, onDeleteWatched }) => {
 };
 
 const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
-  
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [userRating, setUserRating] = useState("");
-  
-
   const {
     Title: title,
     Year: year,
@@ -275,14 +272,12 @@ const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
     Director: director,
     Actors: actors,
     Genre: genre,
+    Language: language,
     Released: released,
   } = movie;
 
-  // const [isTop, setIsTop] = useState(imdbRating > 6);
-  // console.log(isTop);  
+  console.log(title, year);
   
-
-
   useEffect(
     function() {
       function callback(e) {
@@ -315,7 +310,6 @@ const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
     document.title = title ? `${title} - xoFlix` : "xoFlix";
   }, [title]);
 
-  const [avgRating, setAvgRating] = useState(0); 
 
   const handleAdd = () => {
     const newWatchedMovie = {
@@ -327,8 +321,6 @@ const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
       userRating: userRating,
     };
     onAddWatched(newWatchedMovie);
-    // setAvgRating(Number(imdbRating));
-    // setAvgRating((x) => (x + userRating) / 2);
     onCloseMovie();
   };
   const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId);
@@ -360,9 +352,6 @@ const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
               <p>{runtime}</p>
             </div>
           </header>
-
-          <p>{avgRating}</p>
-
           <section>
             <div className="rating">
           {!isWatched ? (
