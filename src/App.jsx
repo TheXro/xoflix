@@ -7,34 +7,29 @@ const average = (arr) => {
   if (arr.length === 0) return 0;
   else {
     return parseFloat(
-      (arr.reduce((acc, cur, i, arr) => acc + cur, 0) / arr.length)
+      arr.reduce((acc, cur, i, arr) => acc + cur, 0) / arr.length
     );
   }
 };
 const KEY = "1705c9a6";
 
-
-
 export default function App() {
   const [query, setQuery] = useState("matrix");
   const [selectedId, setSelectedId] = useState(null);
 
-  const {movies, isLoading, error} = useMovies(query);
+  const { movies, isLoading, error } = useMovies(query);
 
   const [watched, setWatched] = useState(() => {
     const storedValue = localStorage.getItem("watched");
     return JSON.parse(storedValue);
-  }); 
-
-  
-
+  });
 
   const handleSelectMovie = (id) => {
     setSelectedId((selectedId) => (id === selectedId ? null : id));
   };
-  function handleCloseMovie(){
+  function handleCloseMovie() {
     setSelectedId(null);
-  };
+  }
 
   const handleAddWatched = (movie) => {
     setWatched((watched) => [...watched, movie]);
@@ -123,31 +118,30 @@ const Logo = () => {
 };
 
 const Search = ({ query, setQuery }) => {
-
   // useEffect(function() {
   //   const el = document.querySelector(".search");
   //   console.log(el);
   //   el.focus();
   // }, []);
 
-  const inputEl = useRef(null)
+  const inputEl = useRef(null);
 
-  useEffect(function(){
-
-    function callback(e) {
-
-      if(document.activeElement === inputEl.current)
-        return;
-      if(e.code === "Enter"){
-        inputEl.current.focus();
-        setQuery("")
+  useEffect(
+    function () {
+      function callback(e) {
+        if (document.activeElement === inputEl.current) return;
+        if (e.code === "Enter") {
+          inputEl.current.focus();
+          setQuery("");
+        }
       }
-    }
 
-    document.addEventListener("keydown", callback)
-    // inputEl.current.focus();
-    return () => document.addEventListener("keydown",callback)
-  },[setQuery])
+      document.addEventListener("keydown", callback);
+      // inputEl.current.focus();
+      return () => document.addEventListener("keydown", callback);
+    },
+    [setQuery]
+  );
 
   return (
     <input
@@ -390,9 +384,13 @@ const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
 };
 
 const WatchedSummary = ({ watched }) => {
-  const avgImdbRating = average(watched.map((movie) => movie.imdbRating)).toFixed(1);
-  const avgUserRating = average(watched.map((movie) => movie.userRating)).toFixed(1);
-  const avgRuntime = average(watched.map((movie) => movie.runtime)).toFixed(1);
+  const avgImdbRating = average(
+    watched.map((movie) => movie.imdbRating)
+  ).toFixed(1);
+  const avgUserRating = average(
+    watched.map((movie) => movie.userRating)
+  ).toFixed(1);
+  const avgRuntime = average(watched.map((movie) => movie.runtime));
 
   return (
     <div className="summary">
