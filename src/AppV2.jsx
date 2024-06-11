@@ -15,7 +15,7 @@ const average = (arr) => {
 
 const KEY = "1705c9a6";
 
-export default function App() {
+export default function Appv() {
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
