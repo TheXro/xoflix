@@ -12,6 +12,7 @@ const starContainerStyle = {
   gap: "0.5rem",
 };
 
+// eslint-disable-next-line react/prop-types
 const StarRating = ({ maxRating = 5, color = "yellow", size = 25, onSetRating }) => {
       const [rating, setRating] = React.useState(0);
       const [tempRating, setTempRating] = React.useState(0);
